@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StudyDrop Pro - Document Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+         <img src="logo.svg" alt="logo image">
+        <div><p>STUDENT WORKSPACE</p><h1>StudyDrop</h1></div>
+      </div>
+
+      <section class="side-section">
+        <h2>Dashboard</h2>
+        <div class="metric-grid">
+          <div><strong id="totalFiles">0</strong><span>Files</span></div>
+          <div><strong id="totalSize">0 MB</strong><span>Storage</span></div>
+          <div><strong id="pdfCount">0</strong><span>PDFs</span></div>
+          <div><strong id="favoriteCount">0</strong><span>Favorites</span></div>
+        </div>
+      </section>
+
+      <section class="side-section">
+        <h2>Folders</h2>
+        <nav class="folder-list">
+          <button class="folder-button active" data-filter="all">📁 All Documents</button>
+          <button class="folder-button" data-filter="assignment">📝 Assignments</button>
+          <button class="folder-button" data-filter="notes">📚 Notes</button>
+          <button class="folder-button" data-filter="project">💼 Projects</button>
+          <button class="folder-button" data-filter="media">🖼️ Media</button>
+          <button class="folder-button" data-filter="favorite">⭐ Favorites</button>
+        </nav>
+      </section>
+
+      <section class="side-section quick-actions">
+        <h2>Quick Actions</h2>
+        <button id="exportPdfBtn" class="secondary-action">⬇ Download List PDF</button>
+        <button id="exportBtn" class="secondary-action">⬇ Export Data</button>
+        <button id="clearBtn" class="danger-action">🗑 Clear All</button>
+      </section>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">SMART DOCUMENT MANAGEMENT</p>
+          <h2>Upload, preview and organize your documents.</h2>
+        </div>
+        <label class="search-box">🔍
+          <input id="searchInput" type="search" placeholder="Search documents...">
+        </label>
+      </header>
+
+      <section class="upload-grid">
+        <div class="upload-zone" id="dropZone">
+          <input id="fileInput" type="file" multiple hidden>
+          <div class="upload-visual" aria-hidden="true">
+              <img src="student-desk.svg" alt="">
+          </div>
+          <h3>Drop files here</h3>
+          <p>Upload PDF, DOCX, images, PPTX and more</p>
+          <button class="primary-action" id="pickFilesBtn">Choose Files</button>
+          <small>Your documents are saved locally in this browser.</small>
+        </div>
+
+        <div class="details-panel">
+          <h3>Document Details</h3>
+          <label>Student name<input id="studentName" type="text" placeholder="Example: Jaishree Kushwaha"></label>
+          <label>Subject<input id="subjectName" type="text" placeholder="Example: Data Analytics"></label>
+          <div class="field-row">
+            <label>Category
+              <select id="categorySelect">
+                <option value="assignment">Assignment</option>
+                <option value="notes">Notes</option>
+                <option value="project">Project</option>
+                <option value="media">Media</option>
+              </select>
+            </label>
+            <label>Due date<input id="dueDate" type="date"></label>
+          </div>
+          <label>Tags<input id="tagsInput" type="text" placeholder="python, project, semester"></label>
+          <label>Note<textarea id="noteInput" rows="3" placeholder="Add a short description..."></textarea></label>
+        </div>
+      </section>
+
+      <section class="queue-panel">
+        <div class="section-heading">
+          <div><p class="eyebrow">YOUR DOCUMENTS</p><h3>Document Library</h3></div>
+          <div class="view-toggle">
+            <button class="icon-button active" id="gridViewBtn" title="Grid view">▦</button>
+            <button class="icon-button" id="listViewBtn" title="List view">☰</button>
+          </div>
+        </div>
+        <div class="upload-list" id="uploadList"></div>
+        <div class="empty-state" id="emptyState">
+          <div>📂</div><strong>No documents yet</strong>
+          <span>Upload your first file to build your document library.</span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="previewModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div><p>DOCUMENT PREVIEW</p><h3 id="previewTitle">Document</h3></div>
+        <div class="modal-actions">
+          <button id="openTabBtn">Open Tab ↗</button>
+          <button id="downloadPreviewBtn">Download ⬇</button>
+          <button class="close-modal" id="closeModalBtn">✕</button>
+        </div>
+      </div>
+      <div class="preview-body" id="previewBody"></div>
+    </div>
+  </div>
+
+  <template id="fileCardTemplate">
+    <article class="file-card">
+      <div class="file-thumb"></div>
+      <div class="file-content">
+        <div class="file-title-row">
+          <h4></h4>
+          <div class="card-top-actions">
+            <button class="favorite-button" title="Favorite">☆</button>
+            <button class="remove-button" title="Delete">✕</button>
+          </div>
+        </div>
+        <div class="file-meta"></div>
+        <div class="tag-row"></div>
+        <div class="file-actions">
+          <button class="view-button">👁 View</button>
+          <button class="download-button">⬇ Download</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
