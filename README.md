@@ -123,4 +123,4 @@ Analytics reuse the protected Admin data queries; no service-role key or new pub
 5. The recipient signs in and opens **Shared with Me**. The owner can share again to change permission or revoke an active share from the Share action.
 6. Admin → Activity History records share and revoke events.
 
-The share lookup returns only the matched account ID and email. Document metadata and private Storage access are protected by Supabase RLS. The UI hides download controls for view-only shares; this is not DRM, so a recipient who can view a file may still be able to save or capture it using browser/device features.
+The share lookup returns only the matched account ID and email. Document metadata and private Storage access are protected by Supabase RLS. Shared preview links expire after 5 minutes, so revocation blocks new access immediately and any already-issued link expires within 5 minutes. The UI hides download controls for view-only shares; this is not DRM, so a recipient who can view a file may still be able to save or capture it using browser/device features.
