@@ -38,3 +38,32 @@
 .preview-spinner{width:38px;height:38px;border:4px solid #dce4f5;border-top-color:#526ff5;border-radius:50%;animation:studydrop-spin .8s linear infinite}
 @keyframes studydrop-spin{to{transform:rotate(360deg)}}
 .preview-loading p{margin:0}
+
+/* Phase 2: professional dashboard overview */
+.dashboard-overview{display:grid;gap:16px;margin:0 0 22px}
+.overview-heading,.recent-heading{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.overview-heading h3,.recent-heading h3{margin:5px 0 0;font-size:18px;color:#172033}
+.overview-live{display:inline-flex;align-items:center;gap:7px;color:#64748b;font-size:11px;font-weight:700;background:#fff;border:1px solid #e5eaf2;border-radius:99px;padding:8px 11px}
+.overview-live i{width:7px;height:7px;border-radius:50%;background:#22b981;box-shadow:0 0 0 3px #22b98120}
+.overview-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.overview-stat{display:flex;align-items:center;gap:13px;min-width:0;background:#fff;border:1px solid #e5eaf2;border-radius:15px;padding:17px;box-shadow:0 8px 24px rgba(20,35,65,.035)}
+.overview-stat>div{display:grid;gap:5px;min-width:0}
+.overview-stat>div>span{font-size:11px;color:#74819a}
+.overview-stat strong{font-size:21px;line-height:1.1;color:#172033;overflow-wrap:anywhere}
+.overview-icon{width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center;font-size:20px;font-weight:800}
+.overview-icon.blue{background:#edf2ff;color:#526ff5}.overview-icon.purple{background:#f2edff;color:#8060d8}.overview-icon.amber{background:#fff6df;color:#c18a16}.overview-icon.green{background:#e8f8f1;color:#15966b}
+.storage-card,.recent-panel{background:#fff;border:1px solid #e5eaf2;border-radius:15px;padding:18px 20px;box-shadow:0 8px 24px rgba(20,35,65,.035)}
+.storage-card-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}
+.storage-card-heading>div{display:grid;gap:4px}.storage-card-heading strong{font-size:13px;color:#26334b}.storage-card-heading span,.storage-card>small{font-size:11px;color:#74819a}
+.storage-track{height:9px;background:#edf1f7;border-radius:99px;overflow:hidden}.storage-track span{display:block;width:0;height:100%;border-radius:99px;background:linear-gradient(90deg,#526ff5,#8c9cff);transition:width .25s ease}.storage-track span.near-limit{background:linear-gradient(90deg,#e6a23c,#d94b5b)}
+.storage-card>small{display:block;margin-top:9px;line-height:1.5}
+.recent-heading{margin-bottom:10px}.recent-heading>span{font-size:11px;color:#8490a4}
+.recent-uploads{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px}
+.recent-file{display:flex;align-items:center;gap:10px;min-width:0;padding:10px;border:1px solid #edf0f5;border-radius:11px;background:#fff;text-align:left;cursor:pointer;transition:background .15s,border-color .15s}
+.recent-file:hover{background:#f7f9ff;border-color:#cbd6ff}
+.recent-file-icon{width:36px;height:38px;flex:none;border-radius:9px;background:#edf1ff;color:#526ff5;display:grid;place-items:center;font-size:10px;font-weight:800}
+.recent-file-info{display:grid;gap:4px;min-width:0;flex:1}.recent-file-info strong{font-size:11px;color:#344157;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.recent-file-info small{font-size:10px;color:#8792a5}
+.recent-file-arrow{color:#8792a5;font-size:15px}.recent-empty{grid-column:1/-1;margin:0;padding:15px;color:#8792a5;font-size:12px;text-align:center;background:#f8faff;border-radius:10px}
+@media(max-width:1050px){.overview-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:850px){.sidebar{display:flex;padding:15px;gap:13px}.brand{padding:2px 4px}.sidebar>.side-section:first-of-type{display:none}.sidebar .side-section:nth-of-type(2){margin:0}.folder-list{display:flex;overflow-x:auto;padding-bottom:3px}.folder-button{white-space:nowrap;flex:none}.quick-actions{display:flex;flex-wrap:wrap;margin-top:0}.quick-actions h2{width:100%;margin:0}.secondary-action,.danger-action{font-size:11px;padding:9px}.main-panel{padding:18px}}
+@media(max-width:520px){.overview-heading{align-items:flex-start;flex-direction:column}.overview-stats{gap:9px}.overview-stat{padding:12px;gap:9px}.overview-icon{width:34px;height:34px;font-size:17px}.overview-stat strong{font-size:18px}.overview-stat>div>span{font-size:10px}.storage-card,.recent-panel{padding:15px}.recent-uploads{grid-template-columns:1fr}.sidebar{padding:12px}.folder-button{padding:9px;font-size:11px}}
