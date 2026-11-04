@@ -66,7 +66,7 @@ $$;
 
 drop trigger if exists on_auth_user_created_studydrop on auth.users;
 create trigger on_auth_user_created_studydrop
-after insert or update of email on auth.users
+after insert or update on auth.users
 for each row execute function public.handle_new_studydrop_user();
 
 insert into public.app_admin_emails(email)
@@ -161,7 +161,7 @@ begin
 
   insert into public.activity_logs(user_id, actor_id, document_id, action, details)
   values (owner_id, auth.uid(), doc_id, event_action, jsonb_build_object('name', doc_name));
-  return coalesce(new, old);
+  return new;
 end;
 $$;
 
