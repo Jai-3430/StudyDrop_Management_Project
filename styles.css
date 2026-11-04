@@ -147,3 +147,6 @@
 .analytics-empty{padding:28px 10px;color:#8792a5;font-size:12px;text-align:center}
 .analytics-footnote{margin-top:12px}
 @media(max-width:760px){.analytics-toolbar{flex-direction:column}.analytics-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.analytics-grid{grid-template-columns:1fr}.analytics-controls{width:100%}.analytics-controls select{flex:1;min-width:0}}
+
+/* Phase 5 Milestone 2: document sharing */
+.share-button{border:0;border-radius:8px;padding:8px 10px;background:#edf2ff;color:#3559d9;font-size:11px;font-weight:800;cursor:pointer}
