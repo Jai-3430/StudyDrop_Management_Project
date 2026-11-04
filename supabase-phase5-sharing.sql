@@ -56,7 +56,7 @@ using(owner_id=(select auth.uid()) and public.studydrop_is_document_owner(docume
 create or replace function public.find_studydrop_user_by_email(lookup_email text)
 returns table(id uuid,email text) language sql stable security definer set search_path=public as $
  select p.id,p.email from public.profiles p where lower(p.email)=lower(trim(lookup_email)) limit 1;
-$;
+$$;
 revoke all on function public.find_studydrop_user_by_email(text) from public;
 grant execute on function public.find_studydrop_user_by_email(text) to authenticated;
 
