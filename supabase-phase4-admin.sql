@@ -1,6 +1,6 @@
 -- StudyDrop Phase 4: Admin access, cross-user document management, recycle bin and activity history.
 -- Run this complete script in Supabase Dashboard -> SQL Editor.
--- Admin email supplied by the project owner: rj8756544@gmail.com
+-- Before running: replace YOUR_ADMIN_EMAIL@example.com below with the owner email address.
 
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
@@ -70,7 +70,7 @@ after insert or update on auth.users
 for each row execute function public.handle_new_studydrop_user();
 
 insert into public.app_admin_emails(email)
-values ('rj8756544@gmail.com')
+values ('YOUR_ADMIN_EMAIL@example.com')
 on conflict (email) do nothing;
 
 insert into public.profiles (id, email, full_name)
@@ -80,7 +80,7 @@ on conflict (id) do update set email = excluded.email;
 
 insert into public.admin_users(user_id, role)
 select id, 'admin' from auth.users
-where lower(email) = 'rj8756544@gmail.com'
+where lower(email) = 'YOUR_ADMIN_EMAIL@example.com'
 on conflict (user_id) do nothing;
 
 drop policy if exists "Profiles: owner or admin can read" on public.profiles;
