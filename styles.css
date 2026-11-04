@@ -120,3 +120,4 @@
 .admin-dialog-actions button{border:1px solid #dce2ec;border-radius:8px;padding:10px 13px;background:#fff;color:#344157;font-weight:700;cursor:pointer}
 .admin-dialog-actions .admin-save-button{border-color:#526ff5;background:#526ff5;color:#fff}
 @media(max-width:760px){.admin-panel{padding:16px}.admin-heading{align-items:flex-start;flex-direction:column}.admin-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-summary-card{padding:12px}.admin-summary-card strong{font-size:20px}.admin-tabs{overflow-x:auto;flex-wrap:nowrap}.admin-tabs button{white-space:nowrap}.admin-open-button{font-size:10px;padding:8px 9px}}
+\n.dashboard-overview[hidden],.upload-grid[hidden],.queue-panel[hidden]{display:none!important}\n
