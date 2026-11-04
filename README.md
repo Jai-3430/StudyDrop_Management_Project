@@ -87,3 +87,15 @@ GitHub Pages can publish the website files, but it cannot run the Python upload 
 5. Choose the `main` branch and `/root`, then save.
 
 GitHub will provide a public website link after the Pages build finishes.
+
+
+## Supabase cloud setup (Phase 1–4)
+
+For the cloud version, open the Supabase project SQL Editor and run these scripts in order:
+
+1. Run `supabase-setup.sql` to create the private documents table, bucket and owner-only policies.
+2. Open `supabase-phase4-admin.sql`. Replace both occurrences of `YOUR_ADMIN_EMAIL@example.com` with the email address that should own the Admin role, then run the complete script.
+
+The Phase 4 migration creates user profiles, a protected Admin role, cross-user Admin read/update policies, a recycle bin using soft-delete (files are retained), and document activity history. Do not put a Supabase service-role key in browser code or commit it to GitHub.
+
+After running the migration, sign in to StudyDrop with the selected Admin email. The **Admin Control** button appears only for an account that has the database Admin role. All other users can access only their own documents.
