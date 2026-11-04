@@ -252,13 +252,14 @@ async function restoreDocument(doc) {
   else await refreshAdminData();
 }
 
-function renderAnalytics(host) {
+function renderAnalytics(host, selectedRange = "30") {
   const toolbar = el("div", undefined, "analytics-toolbar");
   const heading = el("div", undefined, "analytics-heading");
   heading.append(el("h3", "Workspace analytics"), el("p", "Usage insights based on StudyDrop records."));
   const controls = el("div", undefined, "analytics-controls");
   const range = document.createElement("select");
   range.id = "analyticsRange";
+  range.value = selectedRange;
   range.setAttribute("aria-label", "Analytics date range");
   [["30","Last 30 days"],["90","Last 90 days"],["365","Last 12 months"],["all","All available activity"]].forEach(([value,label]) => {
     const option = document.createElement("option");
@@ -331,9 +332,7 @@ function renderAnalytics(host) {
   const note = el("p", "Report includes all loaded users and documents, plus the latest 250 activity events. Choose a date range to filter the analytics view.", "analytics-footnote");
   host.append(note);
   range.addEventListener("change", () => {
-    const selected = range.value;
-    renderAnalytics(host);
-    host.querySelector("#analyticsRange").value = selected;
+    renderAnalytics(host, range.value);
   });
 }
 function exportAnalyticsCsv() {
