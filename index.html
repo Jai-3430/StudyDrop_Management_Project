@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <section class="auth-screen" id="authScreen"><form class="auth-card" id="authForm"><img src="logo.svg" alt="StudyDrop logo" class="auth-logo"><p class="eyebrow">STUDENT WORKSPACE</p><h1 id="authTitle">Welcome to StudyDrop</h1><p class="auth-intro" id="authSubtitle">Sign in to securely access your documents from any device.</p><label id="authNameWrap" hidden>Full name<input id="authName" type="text" autocomplete="name" placeholder="Your name"></label><label>Email address<input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com"></label><label>Password<input id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="At least 6 characters"></label><button class="primary-action auth-submit" id="authSubmit" type="submit">Sign in</button><button class="text-action" id="forgotPassword" type="button">Forgot password?</button><p class="auth-message" id="authMessage" role="status"></p><p class="auth-switch-line"><span id="authSwitchText">New to StudyDrop?</span> <button class="text-action" id="authSwitch" type="button">Create account</button></p></form></section>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
@@ -50,6 +51,7 @@
           <p class="eyebrow">SMART DOCUMENT MANAGEMENT</p>
           <h2>Upload, preview and organize your documents.</h2>
         </div>
+        <div class="account-bar"><span id="accountEmail"></span><button id="logoutBtn" class="logout-button" type="button">Sign out</button></div>
         <label class="search-box">🔍
           <input id="searchInput" type="search" placeholder="Search documents...">
         </label>
@@ -64,7 +66,7 @@
           <h3>Drop files here</h3>
           <p>Upload PDF, DOCX, images, PPTX and more</p>
           <button class="primary-action" id="pickFilesBtn">Choose Files</button>
-          <small>Your documents are saved locally in this browser.</small>
+          <small>Your documents are stored securely in your private cloud space.</small>
         </div>
 
         <div class="details-panel">
@@ -140,6 +142,6 @@
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
