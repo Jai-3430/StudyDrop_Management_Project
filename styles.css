@@ -20,3 +20,9 @@
 .logout-button{border:1px solid #dce2eb;background:#fff;border-radius:8px;padding:9px 12px;cursor:pointer;color:#344157;font-weight:700}
 .upload-zone small{max-width:290px;line-height:1.5}
 @media(max-width:850px){.account-bar{width:100%;justify-content:space-between}.account-bar span{max-width:70%}.auth-card{padding:26px}}
+
+/* Rich document preview improvements */
+.preview-body{position:relative;display:flex;align-items:stretch;justify-content:stretch;min-height:0}
+.preview-body iframe,.preview-body img{display:block;width:100%;height:100%;min-height:0;object-fit:contain;background:#fff}
+.preview-body .text-preview{width:100%;height:100%;overflow:auto;margin:0;padding:24px;background:#fff;color:#172033;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.preview-note{position:absolute;left:12px;right:12px;bottom:8px;margin:0;padding:7px 10px;border-radius:8px;background:#fffffff0;color:#59657b;font-size:11px;text-align:center;pointer-events:none}
