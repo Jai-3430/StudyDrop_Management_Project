@@ -57,6 +57,25 @@
         </label>
       </header>
 
+      
+      <section class="dashboard-overview" aria-label="Workspace overview">
+        <div class="overview-heading"><div><p class="eyebrow">WORKSPACE OVERVIEW</p><h3>Your activity at a glance</h3></div><span class="overview-live"><i></i> Synced workspace</span></div>
+        <div class="overview-stats">
+          <article class="overview-stat"><span class="overview-icon blue">▤</span><div><span>Total documents</span><strong id="overviewTotalFiles">0</strong></div></article>
+          <article class="overview-stat"><span class="overview-icon purple">▧</span><div><span>PDF documents</span><strong id="overviewPdfCount">0</strong></div></article>
+          <article class="overview-stat"><span class="overview-icon amber">★</span><div><span>Favorites</span><strong id="overviewFavoriteCount">0</strong></div></article>
+          <article class="overview-stat"><span class="overview-icon green">◫</span><div><span>Storage used</span><strong id="overviewStorageUsed">0 MB</strong></div></article>
+        </div>
+        <section class="storage-card" aria-label="Storage usage">
+          <div class="storage-card-heading"><div><strong>Cloud storage</strong><span id="storageUsageLabel">0 MB of 1 GB used</span></div><strong id="storageUsagePercent">0%</strong></div>
+          <div class="storage-track"><span id="storageUsageBar"></span></div>
+          <small>Your account's documents only. Total project usage may be higher when other users upload files.</small>
+        </section>
+        <section class="recent-panel">
+          <div class="recent-heading"><div><p class="eyebrow">QUICK ACCESS</p><h3>Recently uploaded</h3></div><span>Latest 5 files</span></div>
+          <div id="recentUploads" class="recent-uploads"><p class="recent-empty">Your recent documents will appear here.</p></div>
+        </section>
+      </section>
       <section class="upload-grid">
         <div class="upload-zone" id="dropZone">
           <input id="fileInput" type="file" multiple hidden>
