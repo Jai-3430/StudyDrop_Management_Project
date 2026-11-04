@@ -70,7 +70,7 @@ after insert or update on auth.users
 for each row execute function public.handle_new_studydrop_user();
 
 insert into public.app_admin_emails(email)
-values ('YOUR_ADMIN_EMAIL@example.com')
+values (lower('YOUR_ADMIN_EMAIL@example.com'))
 on conflict (email) do nothing;
 
 insert into public.profiles (id, email, full_name)
@@ -80,7 +80,7 @@ on conflict (id) do update set email = excluded.email;
 
 insert into public.admin_users(user_id, role)
 select id, 'admin' from auth.users
-where lower(email) = 'YOUR_ADMIN_EMAIL@example.com'
+where lower(email) = lower('YOUR_ADMIN_EMAIL@example.com')
 on conflict (user_id) do nothing;
 
 drop policy if exists "Profiles: owner or admin can read" on public.profiles;
