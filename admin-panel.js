@@ -281,7 +281,7 @@ function renderAnalytics(host, selectedRange = "30") {
     ["Registered users", adminData.profiles.length],
     ["Active documents", activeDocs.length],
     ["Storage in use", formatAdminBytes(totalBytes)],
-    ["Active users in range", activeUsers.size]
+    ["Users involved in activity", activeUsers.size]
   ].forEach(([label,value]) => cards.append(summaryCard(label,value)));
   host.append(cards);
 
@@ -336,16 +336,16 @@ function renderAnalytics(host, selectedRange = "30") {
   });
 }
 function exportAnalyticsCsv() {
-  const rows = [["record_type","date","user_email","document_name","action","category","size_bytes","subject"]];
+  const rows = [["record_type","date","user_email","actor_email","document_name","action","category","size_bytes","subject"]];
   const profiles = new Map(adminData.profiles.map(profile => [profile.id, profile]));
   adminData.documents.forEach(doc => rows.push([
     "document", doc.created_at || "", profiles.get(doc.user_id)?.email || "",
-    doc.name || "", doc.deleted_at ? "in_recycle_bin" : "active",
+    "", doc.name || "", doc.deleted_at ? "in_recycle_bin" : "active",
     doc.category || "", Number(doc.size || 0), doc.subject || ""
   ]));
   adminData.activity.forEach(item => rows.push([
     "activity", item.created_at || "", profiles.get(item.user_id)?.email || "",
-    item.details?.name || "", item.action || "", "", "", ""
+    profiles.get(item.actor_id)?.email || "System", item.details?.name || "", item.action || "", "", "", ""
   ]));
   const csv = rows.map(row => row.map(value => '"' + String(value ?? "").replace(/"/g,'""') + '"').join(",")).join("\r\n");
   const blob = new Blob(["\uFEFF" + csv], {type:"text/csv;charset=utf-8"});
