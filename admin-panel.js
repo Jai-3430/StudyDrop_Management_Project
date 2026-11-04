@@ -199,7 +199,7 @@ function renderActivity(host, query) {
   });
   host.append(table);
 }
-async function openDocumentFile(doc) {\n  const { data, error } = await adminSupabase.storage.from("documents").createSignedUrl(doc.storage_path, 300, { download: doc.name });\n  if (error) { alert("Could not open file: " + error.message); return; }\n  window.open(data.signedUrl, "_blank", "noopener,noreferrer");\n}\nfunction openDocumentEdit(doc) {
+async function openDocumentFile(doc) {\n  const popup = window.open("about:blank", "_blank");\n  if (!popup) { alert("Allow pop-ups for StudyDrop to open this private document."); return; }\n  const { data, error } = await adminSupabase.storage.from("documents").createSignedUrl(doc.storage_path, 300, { download: doc.name });\n  if (error) { popup.close(); alert("Could not open file: " + error.message); return; }\n  popup.location.href = data.signedUrl;\n}\nfunction openDocumentEdit(doc) {
   const dialog = adminRoot.querySelector("#adminEditDialog");
   const form = adminRoot.querySelector("#adminEditForm");
   form.elements.name.value = doc.name || "";
