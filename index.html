@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <section class="auth-screen" id="authScreen"><form class="auth-card" id="authForm"><img src="logo.svg" alt="StudyDrop logo" class="auth-logo"><p class="eyebrow">STUDENT WORKSPACE</p><h1 id="authTitle">Welcome to StudyDrop</h1><p class="auth-intro" id="authSubtitle">Sign in to securely access your documents from any device.</p><label id="authNameWrap" hidden>Full name<input id="authName" type="text" autocomplete="name" placeholder="Your name"></label><label>Email address<input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com"></label><label>Password<input id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="At least 6 characters"></label><button class="primary-action auth-submit" id="authSubmit" type="submit">Sign in</button><button class="text-action" id="forgotPassword" type="button">Forgot password?</button><p class="auth-message" id="authMessage" role="status"></p><p class="auth-switch-line"><span id="authSwitchText">New to StudyDrop?</span> <button class="text-action" id="authSwitch" type="button">Create account</button></p></form></section>
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
@@ -33,6 +34,7 @@
           <button class="folder-button" data-filter="project">💼 Projects</button>
           <button class="folder-button" data-filter="media">🖼️ Media</button>
           <button class="folder-button" data-filter="favorite">⭐ Favorites</button>
+          <button class="folder-button" data-filter="trash">🗑 Recycle Bin</button>
         </nav>
       </section>
 
@@ -50,11 +52,31 @@
           <p class="eyebrow">SMART DOCUMENT MANAGEMENT</p>
           <h2>Upload, preview and organize your documents.</h2>
         </div>
+        <div class="account-bar"><span id="accountEmail"></span><button id="logoutBtn" class="logout-button" type="button">Sign out</button></div>
         <label class="search-box">🔍
           <input id="searchInput" type="search" placeholder="Search documents...">
         </label>
       </header>
 
+      
+      <section class="dashboard-overview" aria-label="Workspace overview">
+        <div class="overview-heading"><div><p class="eyebrow">WORKSPACE OVERVIEW</p><h3>Your activity at a glance</h3></div><span class="overview-live"><i></i> Synced workspace</span></div>
+        <div class="overview-stats">
+          <article class="overview-stat"><span class="overview-icon blue">▤</span><div><span>Total documents</span><strong id="overviewTotalFiles">0</strong></div></article>
+          <article class="overview-stat"><span class="overview-icon purple">▧</span><div><span>PDF documents</span><strong id="overviewPdfCount">0</strong></div></article>
+          <article class="overview-stat"><span class="overview-icon amber">★</span><div><span>Favorites</span><strong id="overviewFavoriteCount">0</strong></div></article>
+          <article class="overview-stat"><span class="overview-icon green">◫</span><div><span>Storage used</span><strong id="overviewStorageUsed">0 MB</strong></div></article>
+        </div>
+        <section class="storage-card" aria-label="Storage usage">
+          <div class="storage-card-heading"><div><strong>Cloud storage</strong><span id="storageUsageLabel">0 MB of 1 GB used</span></div><strong id="storageUsagePercent">0%</strong></div>
+          <div class="storage-track"><span id="storageUsageBar"></span></div>
+          <small>Your account's documents only. Total project usage may be higher when other users upload files.</small>
+        </section>
+        <section class="recent-panel">
+          <div class="recent-heading"><div><p class="eyebrow">QUICK ACCESS</p><h3>Recently uploaded</h3></div><span>Latest 5 files</span></div>
+          <div id="recentUploads" class="recent-uploads"><p class="recent-empty">Your recent documents will appear here.</p></div>
+        </section>
+      </section>
       <section class="upload-grid">
         <div class="upload-zone" id="dropZone">
           <input id="fileInput" type="file" multiple hidden>
@@ -64,7 +86,7 @@
           <h3>Drop files here</h3>
           <p>Upload PDF, DOCX, images, PPTX and more</p>
           <button class="primary-action" id="pickFilesBtn">Choose Files</button>
-          <small>Your documents are saved locally in this browser.</small>
+          <small>Your documents are stored securely in your private cloud space.</small>
         </div>
 
         <div class="details-panel">
@@ -93,6 +115,33 @@
           <div class="view-toggle">
             <button class="icon-button active" id="gridViewBtn" title="Grid view">▦</button>
             <button class="icon-button" id="listViewBtn" title="List view">☰</button>
+          </div>
+        </div>
+        <div class="library-tools">
+          <label>File type
+            <select id="typeFilter">
+              <option value="all">All file types</option>
+              <option value="pdf">PDF</option>
+              <option value="documents">Word / Text</option>
+              <option value="presentations">PowerPoint</option>
+              <option value="spreadsheets">Excel / CSV</option>
+              <option value="images">Images</option>
+              <option value="other">Other files</option>
+            </select>
+          </label>
+          <label>Sort by
+            <select id="sortSelect">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="name-asc">Name: A to Z</option>
+              <option value="name-desc">Name: Z to A</option>
+              <option value="size-desc">Largest first</option>
+              <option value="size-asc">Smallest first</option>
+            </select>
+          </label>
+          <div class="bulk-actions">
+            <label class="select-visible-label"><input id="selectAllVisible" type="checkbox"> Select visible</label>
+            <button id="bulkDeleteBtn" class="bulk-delete-button" type="button" disabled>Delete selected (<span id="selectedCount">0</span>)</button>
           </div>
         </div>
         <div class="upload-list" id="uploadList"></div>
@@ -140,6 +189,6 @@
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
