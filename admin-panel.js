@@ -154,7 +154,8 @@ function renderDocuments(host, query, trashOnly) {
     const row = document.createElement("tr");
     row.append(el("td", doc.name), el("td", owner?.email || "Unknown user"), el("td", (doc.student || "—") + " / " + (doc.subject || "—")), el("td", formatAdminBytes(doc.size)), el("td", new Date(doc.created_at).toLocaleString()));
     const actions = el("td", undefined, "admin-row-actions");
-    actions.append(actionButton("Open file", "admin-edit-button", () => openDocumentFile(doc)));\n    actions.append(actionButton("Edit", "admin-edit-button", () => openDocumentEdit(doc)));
+    actions.append(actionButton("Open file", "admin-edit-button", () => openDocumentFile(doc)));
+    actions.append(actionButton("Edit", "admin-edit-button", () => openDocumentEdit(doc)));
     if (trashOnly) {
       actions.append(actionButton("Restore", "admin-restore-button", () => restoreDocument(doc)));
     } else {
