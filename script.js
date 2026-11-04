@@ -53,21 +53,21 @@ async function previewFile(upload){let objectUrl=null;try{const viewOnly=upload.
   if(isOfficeDocument(upload)){
     const approved=confirm("To preview this Office file, StudyDrop will send a temporary, read-only link to Microsoft Office Online. Microsoft may process the document to display it. Continue?");
     if(!approved){closePreview();return}
-    const signedUrl=await getSignedUrl(upload,3600),viewerUrl="https://view.officeapps.live.com/op/embed.aspx?src="+encodeURIComponent(signedUrl);
+    const signedUrl=await getSignedUrl(upload,upload.isShared?300:3600),viewerUrl="https://view.officeapps.live.com/op/embed.aspx?src="+encodeURIComponent(signedUrl);
     currentPreview.openUrl="https://view.officeapps.live.com/op/view.aspx?src="+encodeURIComponent(signedUrl);
     const iframe=document.createElement("iframe");iframe.title="Microsoft Office document preview";iframe.src=viewerUrl;iframe.allow="fullscreen";iframe.referrerPolicy="no-referrer";previewBody.replaceChildren(iframe);
-    const note=document.createElement("p");note.className="preview-note";note.textContent="Office preview is provided by Microsoft Online. If it does not load, use Download to open the original file.";previewBody.append(note);
+    const note=document.createElement("p");note.className="preview-note";note.textContent=viewOnly?"Office preview is provided by Microsoft Online. Download access is disabled for this shared document.":"Office preview is provided by Microsoft Online. If it does not load, use Download to open the original file.";previewBody.append(note);
   }else if(upload.type.includes("pdf")||ext==="pdf"){
-    const signedUrl=await getSignedUrl(upload,3600);currentPreview.openUrl=signedUrl;
+    const signedUrl=await getSignedUrl(upload,upload.isShared?300:3600);currentPreview.openUrl=signedUrl;
     const iframe=document.createElement("iframe");iframe.title="PDF preview";iframe.src=signedUrl;iframe.setAttribute("loading","eager");previewBody.replaceChildren(iframe);
   }else if(upload.type.startsWith("image/")||["png","jpg","jpeg","gif","webp","svg"].includes(ext)){
-    const signedUrl=await getSignedUrl(upload,3600);currentPreview.openUrl=signedUrl;
+    const signedUrl=await getSignedUrl(upload,upload.isShared?300:3600);currentPreview.openUrl=signedUrl;
     const img=document.createElement("img");img.alt=upload.name;img.src=signedUrl;previewBody.replaceChildren(img);
   }else if(["txt","md","csv","json","log"].includes(ext)||upload.type.startsWith("text/")){
     const blob=await getCloudBlob(upload);objectUrl=URL.createObjectURL(blob);currentPreview.blob=blob;currentPreview.url=objectUrl;currentPreview.openUrl=objectUrl;
     const pre=document.createElement("pre");pre.className="text-preview";pre.textContent=await blob.text();previewBody.replaceChildren(pre);
   }else{
-    const box=document.createElement("div");box.className="preview-placeholder";box.textContent="Preview is not available for this file type yet. Use Download to open the original file.";previewBody.replaceChildren(box);
+    const box=document.createElement("div");box.className="preview-placeholder";box.textContent=viewOnly?"Preview is not available for this file type. Ask the owner for download access.":"Preview is not available for this file type yet. Use Download to open the original file.";previewBody.replaceChildren(box);
   }
 }catch(error){if(objectUrl)URL.revokeObjectURL(objectUrl);currentPreview=null;previewModal.classList.remove("show");showStatus("Preview failed: "+error.message,true)}}
 function closePreview(){previewModal.classList.remove("show");downloadPreviewBtn.hidden=false;openTabBtn.hidden=false;previewBody.replaceChildren();if(currentPreview){if(currentPreview.url)URL.revokeObjectURL(currentPreview.url);currentPreview=null}}
