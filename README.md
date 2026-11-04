@@ -113,3 +113,14 @@ The Admin Control Panel now includes an **Analytics & Reports** tab with:
 - CSV export containing document metadata and activity events.
 
 Analytics reuse the protected Admin data queries; no service-role key or new public access is introduced. Activity analytics and the CSV activity section use the latest 250 activity records currently loaded by the Admin Panel. This milestone does not yet include document sharing, version history, or email notifications.
+
+## Phase 5 Milestone 2 — Document Sharing
+
+1. Open Supabase Dashboard → SQL Editor.
+2. Run `supabase-phase5-sharing.sql` once, after the Phase 4 admin migration.
+3. Deploy the `feature/phase5-document-sharing` branch preview.
+4. Sign in as the document owner, click **Share** on a document card, enter the email of an existing StudyDrop account, and choose `view` or `download`.
+5. The recipient signs in and opens **Shared with Me**. The owner can share again to change permission or revoke an active share from the Share action.
+6. Admin → Activity History records share and revoke events.
+
+The share lookup returns only the matched account ID and email. Document metadata and private Storage access are protected by Supabase RLS. The UI hides download controls for view-only shares; this is not DRM, so a recipient who can view a file may still be able to save or capture it using browser/device features.
