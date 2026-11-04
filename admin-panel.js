@@ -259,12 +259,12 @@ function renderAnalytics(host, selectedRange = "30") {
   const controls = el("div", undefined, "analytics-controls");
   const range = document.createElement("select");
   range.id = "analyticsRange";
-  range.value = selectedRange;
   range.setAttribute("aria-label", "Analytics date range");
   [["30","Last 30 days"],["90","Last 90 days"],["365","Last 12 months"],["all","All available activity"]].forEach(([value,label]) => {
     const option = document.createElement("option");
     option.value = value; option.textContent = label; range.append(option);
   });
+  range.value = selectedRange;
   const exportButton = actionButton("Export CSV report", "analytics-export-button", () => exportAnalyticsCsv());
   controls.append(range, exportButton);
   toolbar.append(heading, controls);
