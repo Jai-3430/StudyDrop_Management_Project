@@ -99,3 +99,17 @@ For the cloud version, open the Supabase project SQL Editor and run these script
 The Phase 4 migration creates user profiles, a protected Admin role, cross-user Admin read/update policies, a recycle bin using soft-delete (files are retained), and document activity history. Do not put a Supabase service-role key in browser code or commit it to GitHub.
 
 After running the migration, sign in to StudyDrop with the selected Admin email. The **Admin Control** button appears only for an account that has the database Admin role. All other users can access only their own documents.
+
+
+## Phase 5 – Analytics & Reports (Milestone 1)
+
+The Admin Control Panel now includes an **Analytics & Reports** tab with:
+- Registered user and active document totals.
+- Storage usage calculated from active document metadata.
+- Users involved in activity for the selected period.
+- Monthly activity chart for the latest six months in the selected range.
+- Document category distribution.
+- Date-range filters: 30 days, 90 days, 12 months, or all available activity.
+- CSV export containing document metadata and activity events.
+
+Analytics reuse the protected Admin data queries; no service-role key or new public access is introduced. Activity analytics and the CSV activity section use the latest 250 activity records currently loaded by the Admin Panel. This milestone does not yet include document sharing, version history, or email notifications.

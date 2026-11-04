@@ -50,6 +50,7 @@ export async function initAdminPanel(supabase, user) {
       <button type="button" data-admin-tab="users">Users</button>
       <button type="button" data-admin-tab="trash">Recycle bin</button>
       <button type="button" data-admin-tab="activity">Activity history</button>
+      <button type="button" data-admin-tab="analytics">Analytics & Reports</button>
     </nav>
     <label class="admin-search">Search admin data <input id="adminSearch" type="search" placeholder="Search users, documents, subjects…"></label>
     <div id="adminContent" class="admin-content"><p>Loading admin data…</p></div>
@@ -139,6 +140,7 @@ function renderAdminContent() {
   const query = adminRoot.querySelector("#adminSearch").value.trim().toLowerCase();
   if (adminTab === "users") return renderUsers(host, query);
   if (adminTab === "activity") return renderActivity(host, query);
+  if (adminTab === "analytics") return renderAnalytics(host);
   renderDocuments(host, query, adminTab === "trash");
 }
 function renderDocuments(host, query, trashOnly) {
@@ -249,6 +251,112 @@ async function restoreDocument(doc) {
   if (error) alert("Could not restore document: " + error.message);
   else await refreshAdminData();
 }
+
+function renderAnalytics(host, selectedRange = "30") {
+  const toolbar = el("div", undefined, "analytics-toolbar");
+  const heading = el("div", undefined, "analytics-heading");
+  heading.append(el("h3", "Workspace analytics"), el("p", "Usage insights based on StudyDrop records."));
+  const controls = el("div", undefined, "analytics-controls");
+  const range = document.createElement("select");
+  range.id = "analyticsRange";
+  range.setAttribute("aria-label", "Analytics date range");
+  [["30","Last 30 days"],["90","Last 90 days"],["365","Last 12 months"],["all","All available activity"]].forEach(([value,label]) => {
+    const option = document.createElement("option");
+    option.value = value; option.textContent = label; range.append(option);
+  });
+  range.value = selectedRange;
+  const exportButton = actionButton("Export CSV report", "analytics-export-button", () => exportAnalyticsCsv());
+  controls.append(range, exportButton);
+  toolbar.append(heading, controls);
+  host.append(toolbar);
+
+  const activeDocs = adminData.documents.filter(doc => !doc.deleted_at);
+  const totalBytes = activeDocs.reduce((sum, doc) => sum + Number(doc.size || 0), 0);
+  const rangeDays = range.value === "all" ? null : Number(range.value);
+  const cutoff = rangeDays ? Date.now() - rangeDays * 86400000 : 0;
+  const activity = adminData.activity.filter(item => new Date(item.created_at).getTime() >= cutoff);
+  const activeUsers = new Set(activity.flatMap(item => [item.user_id, item.actor_id].filter(Boolean)));
+  const cards = el("div", undefined, "analytics-kpis");
+  [
+    ["Registered users", adminData.profiles.length],
+    ["Active documents", activeDocs.length],
+    ["Storage in use", formatAdminBytes(totalBytes)],
+    ["Users involved in activity", activeUsers.size]
+  ].forEach(([label,value]) => cards.append(summaryCard(label,value)));
+  host.append(cards);
+
+  const grid = el("div", undefined, "analytics-grid");
+  const trend = el("section", undefined, "analytics-card");
+  trend.append(el("h4", "Monthly activity"));
+  const monthly = new Map();
+  activity.forEach(item => {
+    const date = new Date(item.created_at);
+    const key = date.getFullYear() + "-" + String(date.getMonth()+1).padStart(2,"0");
+    monthly.set(key, (monthly.get(key) || 0) + 1);
+  });
+  const monthKeys = Array.from(monthly.keys()).sort().slice(-6);
+  if (!monthKeys.length) trend.append(el("p", "No activity in this date range.", "analytics-empty"));
+  else {
+    const max = Math.max(1, ...monthKeys.map(key => monthly.get(key)));
+    const bars = el("div", undefined, "analytics-bars");
+    monthKeys.forEach(key => {
+      const item = el("div", undefined, "analytics-bar-item");
+      const value = monthly.get(key);
+      const bar = el("div", undefined, "analytics-bar");
+      bar.style.height = Math.max(6, value / max * 150) + "px";
+      bar.title = value + " events";
+      item.append(el("strong", String(value)), bar, el("span", key));
+      bars.append(item);
+    });
+    trend.append(bars);
+  }
+  const categories = el("section", undefined, "analytics-card");
+  categories.append(el("h4", "Documents by category"));
+  const counts = new Map();
+  activeDocs.forEach(doc => counts.set(doc.category || "other", (counts.get(doc.category || "other") || 0) + 1));
+  if (!counts.size) categories.append(el("p", "No active documents yet.", "analytics-empty"));
+  else {
+    const total = Math.max(1, activeDocs.length);
+    counts.forEach((count, name) => {
+      const line = el("div", undefined, "analytics-category");
+      const labels = el("div", undefined, "analytics-category-label");
+      labels.append(el("span", name.charAt(0).toUpperCase()+name.slice(1)), el("strong", count + " · " + Math.round(count/total*100) + "%"));
+      const track = el("div", undefined, "analytics-category-track");
+      const fill = el("span");
+      fill.style.width = (count/total*100) + "%";
+      track.append(fill); line.append(labels,track); categories.append(line);
+    });
+  }
+  grid.append(trend,categories);
+  host.append(grid);
+  const note = el("p", "Report includes all loaded users and documents, plus the latest 250 activity events. Choose a date range to filter the analytics view.", "analytics-footnote");
+  host.append(note);
+  range.addEventListener("change", () => {
+    renderAnalytics(host, range.value);
+  });
+}
+function exportAnalyticsCsv() {
+  const rows = [["record_type","date","user_email","actor_email","document_name","action","category","size_bytes","subject"]];
+  const profiles = new Map(adminData.profiles.map(profile => [profile.id, profile]));
+  adminData.documents.forEach(doc => rows.push([
+    "document", doc.created_at || "", profiles.get(doc.user_id)?.email || "",
+    "", doc.name || "", doc.deleted_at ? "in_recycle_bin" : "active",
+    doc.category || "", Number(doc.size || 0), doc.subject || ""
+  ]));
+  adminData.activity.forEach(item => rows.push([
+    "activity", item.created_at || "", profiles.get(item.user_id)?.email || "",
+    profiles.get(item.actor_id)?.email || "System", item.details?.name || "", item.action || "", "", "", ""
+  ]));
+  const csv = rows.map(row => row.map(value => '"' + String(value ?? "").replace(/"/g,'""') + '"').join(",")).join("\r\n");
+  const blob = new Blob(["\uFEFF" + csv], {type:"text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "studydrop-admin-report-" + new Date().toISOString().slice(0,10) + ".csv";
+  document.body.append(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 function formatAdminBytes(bytes) {
   const value = Number(bytes || 0);
   if (value < 1024) return value + " B";
