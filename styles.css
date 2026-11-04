@@ -121,3 +121,29 @@
 .admin-dialog-actions .admin-save-button{border-color:#526ff5;background:#526ff5;color:#fff}
 @media(max-width:760px){.admin-panel{padding:16px}.admin-heading{align-items:flex-start;flex-direction:column}.admin-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-summary-card{padding:12px}.admin-summary-card strong{font-size:20px}.admin-tabs{overflow-x:auto;flex-wrap:nowrap}.admin-tabs button{white-space:nowrap}.admin-open-button{font-size:10px;padding:8px 9px}}
 \n.dashboard-overview[hidden],.upload-grid[hidden],.queue-panel[hidden]{display:none!important}\n
+
+/* Phase 5: admin analytics and CSV reports */
+.analytics-toolbar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:4px 0 16px}
+.analytics-heading h3{margin:0 0 5px;color:#172033;font-size:18px}
+.analytics-heading p,.analytics-footnote{margin:0;color:#718097;font-size:11px;line-height:1.6}
+.analytics-controls{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.analytics-controls select{border:1px solid #dce3ef;border-radius:9px;padding:10px 12px;background:#fff;color:#344157;font:inherit;font-size:12px}
+.analytics-export-button{border:0;border-radius:9px;padding:10px 13px;background:#172b50;color:#fff;font-size:12px;font-weight:800;cursor:pointer}
+.analytics-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.analytics-kpis .admin-summary-card{background:#fff}
+.analytics-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:14px}
+.analytics-card{min-width:0;padding:18px;background:#fff;border:1px solid #e6ebf3;border-radius:13px}
+.analytics-card h4{margin:0 0 16px;color:#344157;font-size:13px}
+.analytics-bars{height:205px;display:flex;align-items:flex-end;justify-content:space-around;gap:12px;padding:10px 4px 0;border-bottom:1px solid #e8edf4}
+.analytics-bar-item{height:100%;min-width:0;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px}
+.analytics-bar-item strong{font-size:11px;color:#526ff5}
+.analytics-bar{width:min(38px,70%);min-height:6px;border-radius:7px 7px 0 0;background:linear-gradient(180deg,#8296ff,#526ff5)}
+.analytics-bar-item span{font-size:10px;color:#718097;white-space:nowrap}
+.analytics-category{margin:0 0 15px}
+.analytics-category-label{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;color:#59657b;font-size:11px}
+.analytics-category-label strong{color:#344157}
+.analytics-category-track{height:9px;border-radius:99px;background:#edf1f7;overflow:hidden}
+.analytics-category-track span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#526ff5,#8c9cff)}
+.analytics-empty{padding:28px 10px;color:#8792a5;font-size:12px;text-align:center}
+.analytics-footnote{margin-top:12px}
+@media(max-width:760px){.analytics-toolbar{flex-direction:column}.analytics-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.analytics-grid{grid-template-columns:1fr}.analytics-controls{width:100%}.analytics-controls select{flex:1;min-width:0}}
