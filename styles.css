@@ -67,3 +67,16 @@
 @media(max-width:1050px){.overview-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:850px){.sidebar{display:flex;padding:15px;gap:13px}.brand{padding:2px 4px}.sidebar>.side-section:first-of-type{display:none}.sidebar .side-section:nth-of-type(2){margin:0}.folder-list{display:flex;overflow-x:auto;padding-bottom:3px}.folder-button{white-space:nowrap;flex:none}.quick-actions{display:flex;flex-wrap:wrap;margin-top:0}.quick-actions h2{width:100%;margin:0}.secondary-action,.danger-action{font-size:11px;padding:9px}.main-panel{padding:18px}}
 @media(max-width:520px){.overview-heading{align-items:flex-start;flex-direction:column}.overview-stats{gap:9px}.overview-stat{padding:12px;gap:9px}.overview-icon{width:34px;height:34px;font-size:17px}.overview-stat strong{font-size:18px}.overview-stat>div>span{font-size:10px}.storage-card,.recent-panel{padding:15px}.recent-uploads{grid-template-columns:1fr}.sidebar{padding:12px}.folder-button{padding:9px;font-size:11px}}
+
+/* Phase 3: document search, filters, sorting and bulk actions */
+.library-tools{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:0 0 16px;padding:14px;background:#f8faff;border:1px solid #e5eaf2;border-radius:13px}
+.library-tools>label{display:grid;gap:6px;font-size:11px;font-weight:700;color:#59657b;min-width:155px}
+.library-tools select{width:100%;padding:10px 12px;border:1px solid #dce2ec;border-radius:9px;background:#fff;color:#344157;font:inherit;font-size:12px}
+.bulk-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-left:auto}
+.select-visible-label{display:flex;align-items:center;gap:7px;color:#59657b;font-size:12px;font-weight:600;cursor:pointer}
+.select-visible-label input,.select-file-checkbox{width:16px;height:16px;accent-color:#526ff5;cursor:pointer}
+.bulk-delete-button{border:0;border-radius:9px;padding:10px 13px;background:#fff0f1;color:#b42336;font-size:12px;font-weight:700;cursor:pointer}
+.bulk-delete-button:disabled{opacity:.45;cursor:not-allowed}
+.select-file-checkbox{flex:none;margin:2px 0 0}
+.file-title-row{align-items:flex-start}
+@media(max-width:600px){.library-tools{align-items:stretch}.library-tools>label{min-width:calc(50% - 7px);flex:1}.bulk-actions{width:100%;margin-left:0;justify-content:space-between}}
