@@ -54,9 +54,9 @@ create policy "Owners can delete document shares" on public.document_shares for 
 using(owner_id=(select auth.uid()) and public.studydrop_is_document_owner(document_id));
 
 create or replace function public.find_studydrop_user_by_email(lookup_email text)
-returns table(id uuid,email text,full_name text) language sql stable security definer set search_path=public as $$
- select p.id,p.email,p.full_name from public.profiles p where lower(p.email)=lower(trim(lookup_email)) limit 1;
-$$;
+returns table(id uuid,email text) language sql stable security definer set search_path=public as $
+ select p.id,p.email from public.profiles p where lower(p.email)=lower(trim(lookup_email)) limit 1;
+$;
 revoke all on function public.find_studydrop_user_by_email(text) from public;
 grant execute on function public.find_studydrop_user_by_email(text) to authenticated;
 
