@@ -197,7 +197,7 @@ function renderActivity(host, query) {
   if (!entries.length) addEmptyRow(table, "No activity records found.", 5);
   entries.forEach(item => {
     const row = document.createElement("tr");
-    row.append(el("td", new Date(item.created_at).toLocaleString()), el("td", item.action), el("td", item.details?.name || "—"), el("td", profiles.get(item.user_id)?.email || "—"), el("td", profiles.get(item.actor_id)?.email || "System"));
+    row.append(el("td", new Date(item.created_at).toLocaleString()), el("td", item.action === "share" ? "Document shared" : item.action === "revoke_share" ? "Share revoked" : item.action), el("td", (item.details?.name || "—") + (item.details?.recipient_email ? " → " + item.details.recipient_email : "")), el("td", profiles.get(item.user_id)?.email || "—"), el("td", profiles.get(item.actor_id)?.email || "System"));
     table.querySelector("tbody").append(row);
   });
   host.append(table);
