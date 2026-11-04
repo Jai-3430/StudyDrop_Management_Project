@@ -154,7 +154,7 @@ function renderDocuments(host, query, trashOnly) {
     const row = document.createElement("tr");
     row.append(el("td", doc.name), el("td", owner?.email || "Unknown user"), el("td", (doc.student || "—") + " / " + (doc.subject || "—")), el("td", formatAdminBytes(doc.size)), el("td", new Date(doc.created_at).toLocaleString()));
     const actions = el("td", undefined, "admin-row-actions");
-    actions.append(actionButton("Edit", "admin-edit-button", () => openDocumentEdit(doc)));
+    actions.append(actionButton("Open file", "admin-edit-button", () => openDocumentFile(doc)));\n    actions.append(actionButton("Edit", "admin-edit-button", () => openDocumentEdit(doc)));
     if (trashOnly) {
       actions.append(actionButton("Restore", "admin-restore-button", () => restoreDocument(doc)));
     } else {
@@ -199,7 +199,7 @@ function renderActivity(host, query) {
   });
   host.append(table);
 }
-function openDocumentEdit(doc) {
+async function openDocumentFile(doc) {\n  const { data, error } = await adminSupabase.storage.from("documents").createSignedUrl(doc.storage_path, 300, { download: doc.name });\n  if (error) { alert("Could not open file: " + error.message); return; }\n  window.open(data.signedUrl, "_blank", "noopener,noreferrer");\n}\nfunction openDocumentEdit(doc) {
   const dialog = adminRoot.querySelector("#adminEditDialog");
   const form = adminRoot.querySelector("#adminEditForm");
   form.elements.name.value = doc.name || "";
