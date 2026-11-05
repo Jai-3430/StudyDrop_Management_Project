@@ -113,3 +113,36 @@ The Admin Control Panel now includes an **Analytics & Reports** tab with:
 - CSV export containing document metadata and activity events.
 
 Analytics reuse the protected Admin data queries; no service-role key or new public access is introduced. Activity analytics and the CSV activity section use the latest 250 activity records currently loaded by the Admin Panel. This milestone does not yet include document sharing, version history, or email notifications.
+
+## Phase 5 Milestone 2 — Document Sharing
+
+1. Open Supabase Dashboard → SQL Editor.
+2. Run `supabase-phase5-sharing.sql` once, after the Phase 4 admin migration.
+3. Deploy the `feature/phase5-document-sharing` branch preview.
+4. Sign in as the document owner, click **Share** on a document card, enter the email of an existing StudyDrop account, and choose `view` or `download`.
+5. The recipient signs in and opens **Shared with Me**. The owner can share again to change permission or revoke an active share from the Share action.
+6. Admin → Activity History records share and revoke events.
+
+The share lookup returns only the matched account ID and email. Document metadata and private Storage access are protected by Supabase RLS. Shared preview links expire after 5 minutes, so revocation blocks new access immediately and any already-issued link expires within 5 minutes. The UI hides download controls for view-only shares; this is not DRM, so a recipient who can view a file may still be able to save or capture it using browser/device features.
+
+## Phase 5 — Advanced Security Hardening
+
+After the Phase 4, Phase 5 sharing, and permanent-delete migrations, run
+`supabase-phase5-security-hardening.sql` once in Supabase SQL Editor.
+
+This adds database-level document ownership and storage-path integrity checks,
+reasserts the private documents bucket and 50 MB upload limit, and rate-limits
+the authenticated share-recipient email lookup to 20 requests per user per hour.
+The lookup counter table is not directly accessible to browser clients.
+Existing Row Level Security (RLS) policies remain the enforcement layer for
+private documents, shared documents, storage objects, profiles, and admin data.
+
+Security operations checklist:
+- Keep the Supabase service-role key out of browser code, GitHub, and Vercel public variables.
+- Keep the `documents` bucket private.
+- Enable email confirmation, CAPTCHA/bot protection, and MFA where supported in Supabase Auth settings.
+- Review Admin users periodically and remove admin access that is no longer needed.
+- Test with two normal accounts: each must see only its own documents and documents explicitly shared with it.
+- Test with a non-admin account: it must not be able to call admin RPCs or read admin tables.
+- Treat signed URLs as temporary bearer links; do not share them publicly.
+- Maintain independent backups. Recycle Bin is recovery from accidental soft deletion, not a backup.

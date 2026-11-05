@@ -120,7 +120,9 @@
 .admin-dialog-actions button{border:1px solid #dce2ec;border-radius:8px;padding:10px 13px;background:#fff;color:#344157;font-weight:700;cursor:pointer}
 .admin-dialog-actions .admin-save-button{border-color:#526ff5;background:#526ff5;color:#fff}
 @media(max-width:760px){.admin-panel{padding:16px}.admin-heading{align-items:flex-start;flex-direction:column}.admin-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-summary-card{padding:12px}.admin-summary-card strong{font-size:20px}.admin-tabs{overflow-x:auto;flex-wrap:nowrap}.admin-tabs button{white-space:nowrap}.admin-open-button{font-size:10px;padding:8px 9px}}
-\n.dashboard-overview[hidden],.upload-grid[hidden],.queue-panel[hidden]{display:none!important}\n
+
+.dashboard-overview[hidden],.upload-grid[hidden],.queue-panel[hidden]{display:none!important}
+
 
 /* Phase 5: admin analytics and CSV reports */
 .analytics-toolbar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:4px 0 16px}
@@ -147,3 +149,52 @@
 .analytics-empty{padding:28px 10px;color:#8792a5;font-size:12px;text-align:center}
 .analytics-footnote{margin-top:12px}
 @media(max-width:760px){.analytics-toolbar{flex-direction:column}.analytics-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.analytics-grid{grid-template-columns:1fr}.analytics-controls{width:100%}.analytics-controls select{flex:1;min-width:0}}
+
+/* Phase 5 Milestone 2: document sharing */
+.share-button{border:0;border-radius:8px;padding:8px 10px;background:#edf2ff;color:#3559d9;font-size:11px;font-weight:800;cursor:pointer}
+
+/* Clickable document sharing dialog */
+.share-dialog{width:min(460px,calc(100% - 28px));max-height:88vh;border:0;border-radius:18px;padding:0;box-shadow:0 24px 80px #10182855;color:#172033}
+.share-dialog::backdrop{background:#111a2e99;backdrop-filter:blur(2px)}
+.share-dialog-panel{display:grid;gap:0;margin:0}
+.share-dialog-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:21px 22px;border-bottom:1px solid #edf0f5}
+.share-dialog-heading h3{margin:0 0 5px;font-size:17px;color:#172033}
+.share-dialog-heading p{margin:0;color:#718097;font-size:11px;overflow-wrap:anywhere}
+.share-dialog-close{width:30px;height:30px;border:0;border-radius:8px;background:#f1f4f9;color:#59657b;font-size:21px;cursor:pointer}
+.share-dialog-content{display:grid;gap:14px;padding:20px 22px 22px}
+.share-choice-list{display:grid;gap:10px}
+.share-choice{display:flex;align-items:center;gap:13px;width:100%;padding:14px;border:1px solid #e1e7f0;border-radius:12px;background:#fff;text-align:left;cursor:pointer}
+.share-choice>span:first-child{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:#f0f3ff;color:#3559d9;font-size:20px}
+.share-choice strong,.share-choice small{display:block}
+.share-choice strong{font-size:13px;color:#26344d}
+.share-choice small{margin-top:4px;color:#718097;font-size:11px}
+.share-choice:hover{border-color:#8da2ff;background:#f9faff}
+.share-field{display:grid;gap:7px;color:#59657b;font-size:12px;font-weight:700}
+.share-field input,.share-field select{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #dce3ef;border-radius:9px;background:#fff;color:#26344d;font:inherit;font-size:13px}
+.share-dialog-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:5px}
+.share-dialog-actions button,.share-revoke-button{border:1px solid #dce3ef;border-radius:8px;padding:10px 13px;background:#fff;color:#344157;font-size:12px;font-weight:700;cursor:pointer}
+.share-dialog-actions .share-primary{border-color:#526ff5;background:#526ff5;color:#fff}
+.share-recipient-list{display:grid;gap:9px}
+.share-recipient-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid #e7ebf2;border-radius:10px}
+.share-recipient-row strong,.share-recipient-row small{display:block;overflow-wrap:anywhere}
+.share-recipient-row strong{font-size:12px;color:#26344d}
+.share-recipient-row small{margin-top:4px;color:#718097;font-size:10px}
+.share-revoke-button{border-color:#f1c8ce;background:#fff3f4;color:#b42336;white-space:nowrap}
+.share-empty,.share-loading{margin:0;padding:12px;color:#718097;font-size:12px}
+.share-dialog button:disabled{opacity:.55;cursor:wait}
+
+
+/* Recycle Bin: permanent delete action */
+.permanent-delete-button{border:0;border-radius:8px;padding:7px 9px;background:#fff0f1;color:#b42336;font-size:13px;font-weight:800;cursor:pointer}
+.permanent-delete-button:hover{background:#ffe0e4}
+.permanent-delete-button:disabled{opacity:.55;cursor:wait}
+
+/* Keep the recycle-bin permanent delete action visibly available when enabled. */
+.permanent-delete-button[hidden]{display:none!important}
+.file-actions .permanent-delete-button:not([hidden]){display:inline-flex!important;align-items:center;justify-content:center;background:#fff0f1;color:#b42336;border:1px solid #f3c4ca;border-radius:8px;padding:8px 10px;font-size:11px;font-weight:800;cursor:pointer}
+.file-actions .permanent-delete-button:not([hidden]):hover{background:#ffe0e4}
+.file-actions .permanent-delete-button:disabled{opacity:.55;cursor:wait}
+
+/* Admin recycle-bin permanent deletion */
+.admin-permanent-delete-button{border:0;border-radius:8px;padding:8px 10px;background:#fff0f1;color:#b42336;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.admin-permanent-delete-button:hover{background:#ffe0e4}
