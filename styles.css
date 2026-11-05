@@ -194,3 +194,7 @@
 .file-actions .permanent-delete-button:not([hidden]){display:inline-flex!important;align-items:center;justify-content:center;background:#fff0f1;color:#b42336;border:1px solid #f3c4ca;border-radius:8px;padding:8px 10px;font-size:11px;font-weight:800;cursor:pointer}
 .file-actions .permanent-delete-button:not([hidden]):hover{background:#ffe0e4}
 .file-actions .permanent-delete-button:disabled{opacity:.55;cursor:wait}
+
+/* Admin recycle-bin permanent deletion */
+.admin-permanent-delete-button{border:0;border-radius:8px;padding:8px 10px;background:#fff0f1;color:#b42336;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.admin-permanent-delete-button:hover{background:#ffe0e4}
