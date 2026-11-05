@@ -120,7 +120,9 @@
 .admin-dialog-actions button{border:1px solid #dce2ec;border-radius:8px;padding:10px 13px;background:#fff;color:#344157;font-weight:700;cursor:pointer}
 .admin-dialog-actions .admin-save-button{border-color:#526ff5;background:#526ff5;color:#fff}
 @media(max-width:760px){.admin-panel{padding:16px}.admin-heading{align-items:flex-start;flex-direction:column}.admin-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-summary-card{padding:12px}.admin-summary-card strong{font-size:20px}.admin-tabs{overflow-x:auto;flex-wrap:nowrap}.admin-tabs button{white-space:nowrap}.admin-open-button{font-size:10px;padding:8px 9px}}
-\n.dashboard-overview[hidden],.upload-grid[hidden],.queue-panel[hidden]{display:none!important}\n
+
+.dashboard-overview[hidden],.upload-grid[hidden],.queue-panel[hidden]{display:none!important}
+
 
 /* Phase 5: admin analytics and CSV reports */
 .analytics-toolbar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:4px 0 16px}
@@ -180,4 +182,9 @@
 .share-revoke-button{border-color:#f1c8ce;background:#fff3f4;color:#b42336;white-space:nowrap}
 .share-empty,.share-loading{margin:0;padding:12px;color:#718097;font-size:12px}
 .share-dialog button:disabled{opacity:.55;cursor:wait}
-\n\n/* Recycle Bin: permanent delete action */\n.permanent-delete-button{border:0;border-radius:8px;padding:7px 9px;background:#fff0f1;color:#b42336;font-size:13px;font-weight:800;cursor:pointer}\n.permanent-delete-button:hover{background:#ffe0e4}\n.permanent-delete-button:disabled{opacity:.55;cursor:wait}\n
+
+
+/* Recycle Bin: permanent delete action */
+.permanent-delete-button{border:0;border-radius:8px;padding:7px 9px;background:#fff0f1;color:#b42336;font-size:13px;font-weight:800;cursor:pointer}
+.permanent-delete-button:hover{background:#ffe0e4}
+.permanent-delete-button:disabled{opacity:.55;cursor:wait}
