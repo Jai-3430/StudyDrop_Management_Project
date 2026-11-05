@@ -160,6 +160,7 @@ function renderDocuments(host, query, trashOnly) {
     actions.append(actionButton("Edit", "admin-edit-button", () => openDocumentEdit(doc)));
     if (trashOnly) {
       actions.append(actionButton("Restore", "admin-restore-button", () => restoreDocument(doc)));
+      actions.append(actionButton("Permanent Delete", "admin-permanent-delete-button", () => permanentlyDeleteAdminDocument(doc)));
     } else {
       actions.append(actionButton("Move to bin", "admin-trash-button", () => softDeleteDocument(doc)));
     }
@@ -250,6 +251,22 @@ async function restoreDocument(doc) {
   const { error } = await adminSupabase.from("documents").update({ deleted_at: null }).eq("id", doc.id);
   if (error) alert("Could not restore document: " + error.message);
   else await refreshAdminData();
+}
+async function permanentlyDeleteAdminDocument(doc) {
+  if (!doc.deleted_at) return;
+  if (!confirm("Permanently delete “" + doc.name + "” owned by " + (adminData.profiles.find(profile => profile.id === doc.user_id)?.email || "this user") + "? This cannot be undone.")) return;
+  try {
+    if (doc.storage_path) {
+      const { error: storageError } = await adminSupabase.storage.from("documents").remove([doc.storage_path]);
+      if (storageError) throw new Error("Cloud file could not be deleted: " + storageError.message);
+    }
+    const { error: documentError } = await adminSupabase.from("documents").delete().eq("id", doc.id);
+    if (documentError) throw new Error("Document record could not be deleted: " + documentError.message);
+    await refreshAdminData();
+    alert("Permanently deleted “" + doc.name + "”.");
+  } catch (error) {
+    alert("Could not permanently delete “" + doc.name + "”: " + error.message);
+  }
 }
 
 function renderAnalytics(host, selectedRange = "30") {
