@@ -188,3 +188,9 @@
 .permanent-delete-button{border:0;border-radius:8px;padding:7px 9px;background:#fff0f1;color:#b42336;font-size:13px;font-weight:800;cursor:pointer}
 .permanent-delete-button:hover{background:#ffe0e4}
 .permanent-delete-button:disabled{opacity:.55;cursor:wait}
+
+/* Keep the recycle-bin permanent delete action visibly available when enabled. */
+.permanent-delete-button[hidden]{display:none!important}
+.file-actions .permanent-delete-button:not([hidden]){display:inline-flex!important;align-items:center;justify-content:center;background:#fff0f1;color:#b42336;border:1px solid #f3c4ca;border-radius:8px;padding:8px 10px;font-size:11px;font-weight:800;cursor:pointer}
+.file-actions .permanent-delete-button:not([hidden]):hover{background:#ffe0e4}
+.file-actions .permanent-delete-button:disabled{opacity:.55;cursor:wait}
