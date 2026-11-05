@@ -15,3 +15,18 @@ using (
   bucket_id = 'documents'
   and (storage.foldername(name))[1] = (select auth.uid())::text
 );
+
+
+-- Allow verified StudyDrop admins to permanently remove any document and its file.
+drop policy if exists "Admins can permanently delete any document" on public.documents;
+create policy "Admins can permanently delete any document"
+on public.documents for delete to authenticated
+using ((select public.is_app_admin()));
+
+drop policy if exists "Admins can permanently delete any document files" on storage.objects;
+create policy "Admins can permanently delete any document files"
+on storage.objects for delete to authenticated
+using (
+  bucket_id = 'documents'
+  and (select public.is_app_admin())
+);
