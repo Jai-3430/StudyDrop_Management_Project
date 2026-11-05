@@ -180,3 +180,4 @@
 .share-revoke-button{border-color:#f1c8ce;background:#fff3f4;color:#b42336;white-space:nowrap}
 .share-empty,.share-loading{margin:0;padding:12px;color:#718097;font-size:12px}
 .share-dialog button:disabled{opacity:.55;cursor:wait}
+\n\n/* Recycle Bin: permanent delete action */\n.permanent-delete-button{border:0;border-radius:8px;padding:7px 9px;background:#fff0f1;color:#b42336;font-size:13px;font-weight:800;cursor:pointer}\n.permanent-delete-button:hover{background:#ffe0e4}\n.permanent-delete-button:disabled{opacity:.55;cursor:wait}\n
